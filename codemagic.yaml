@@ -29,9 +29,6 @@ workflows:
     artifacts:
       - build/ios/ipa/*.ipa
 
-    integrations:
-      app_store_connect: codemagic
-
     publishing:
       app_store_connect:
         auth: integration
