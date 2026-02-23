@@ -20,9 +20,11 @@ workflows:
           keychain add-certificates
           xcode-project use-profiles
 
-      - name: Build iOS
+      - name: Build IPA
         script: |
-          flutter build ipa --release
+          xcode-project build-ipa \
+            --workspace ios/Runner.xcworkspace \
+            --scheme Runner
 
     artifacts:
       - build/ios/ipa/*.ipa
