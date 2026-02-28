@@ -1,8 +1,12 @@
+# Codemagicビルド設定ファイル
+
+# 対応OSの設定
 workflows:
   ios-release:
     name: iOS Release Build
     max_build_duration: 60
 
+    # 署名方法の指定／対象のbundleIDの設定
     environment:
       flutter: stable
       xcode: latest
@@ -10,8 +14,10 @@ workflows:
         distribution_type: app_store
         bundle_identifier: com.tom728.biztimer
 
+    # 証明書の用意
     scripts:
       - name: Set up code signing
+        # 証明書格納先の初期化／Distribution証明書／App Store用プロビジョニングプロファイルを取得／追加
         script: |
           keychain initialize
           app-store-connect fetch-signing-files "$BUNDLE_IDENTIFIER" \
@@ -19,19 +25,22 @@ workflows:
             --create
           keychain add-certificates
           xcode-project use-profiles
-
+      # iOSプロジェクトをアーカイブ／署名付きIPAを作成
       - name: Build IPA
         script: |
           xcode-project build-ipa \
             --workspace ios/Runner.xcworkspace \
             --scheme Runner
-
+    
+    # Codemagic画面でダウンロードできるようになる。
     artifacts:
       - build/ios/ipa/*.ipa
 
+    # App Store Connectアカウントを使う宣言
     integrations:
       app_store_connect: codemagic
 
+    # さっきのintegrationを使って、自動でTestFlightに送る
     publishing:
       app_store_connect:
         auth: integration
