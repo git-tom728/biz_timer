@@ -28,7 +28,10 @@ workflows:
       # iOSプロジェクトをアーカイブ／署名付きIPAを作成
       - name: Build IPA
         script: |
-          flutter build ipa --release
+          xcode-project build-ipa \
+            --workspace ios/Runner.xcworkspace \
+            --scheme Runner \
+            --export-method app-store
     
     # Codemagic画面でダウンロードできるようになる。
     artifacts:
