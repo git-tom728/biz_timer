@@ -14,10 +14,8 @@ workflows:
         distribution_type: app_store
         bundle_identifier: com.tom728.biztimer
 
-    # 証明書の用意
     scripts:
       - name: Set up code signing
-        # 証明書格納先の初期化／Distribution証明書／App Store用プロビジョニングプロファイルを取得／追加
         script: |
           keychain initialize
           app-store-connect fetch-signing-files "$BUNDLE_IDENTIFIER" \
@@ -25,13 +23,10 @@ workflows:
             --create
           keychain add-certificates
           xcode-project use-profiles
-      # iOSプロジェクトをアーカイブ／署名付きIPAを作成
+
       - name: Build IPA
         script: |
-          xcode-project build-ipa \
-            --workspace ios/Runner.xcworkspace \
-            --scheme Runner \
-            --export-method app-store
+          flutter build ipa --release
     
     # Codemagic画面でダウンロードできるようになる。
     artifacts:
