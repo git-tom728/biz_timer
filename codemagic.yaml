@@ -5,7 +5,7 @@ workflows:
     name: iOS Release Build
     max_build_duration: 60
 
-    # 署名方法の指定／対象のbundleIDの設定
+  # 署名方法の指定／対象のbundleIDの設定
     environment:
       flutter: stable
       xcode: latest
@@ -14,7 +14,12 @@ workflows:
         bundle_identifier: com.tom728.biztimer
 
     scripts:
-      # 署名ファイル（証明書・Provisioning Profile）を取得して設定
+  # 依存パッケージ取得
+      - name: Install dependencies
+        script: |
+          flutter pub get
+
+  # 署名ファイル（証明書・Provisioning Profile）を取得して設定
       - name: Set up code signing
         script: |
           keychain initialize
@@ -24,7 +29,7 @@ workflows:
           keychain add-certificates
           xcode-project use-profiles
 
-      # IPAファイルをビルド
+  # IPAファイルをビルド
       - name: Build IPA
         script: |
           xcode-project build-ipa \
