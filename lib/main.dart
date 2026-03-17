@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:biz_timer/home_window/home_window.dart';
-import 'package:biz_timer/settings_window/settings_window.dart';
+// import 'package:biz_timer/settings_window/settings_window.dart'; // 20250312_DELETE_apple審査通過のため一時的に機能を削除
 
 void main() {
   runApp(const MyApp());
@@ -32,31 +32,31 @@ class _HomePageState extends State<HomePage> {
 
   final List<Widget> _pages = const [
     HomeWindow(),
-    SettingsWindow(),
+    // SettingsWindow(),　// 20250312_DELETE_apple審査通過のため一時的に機能を削除
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        ),
+      // bottomNavigationBar: BottomNavigationBar(  // 20250312_DELETE_apple審査通過のため一時的に機能を削除 ※ナビゲーションバーを使用する場合は項目が２個以上必要のため
+      //   currentIndex: _selectedIndex,
+      //   onTap: (index) {
+      //     setState(() {
+      //       _selectedIndex = index;
+      //     });
+      //   },
+      //   items: const [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: 'Home',
+      //     ),
+      //     // BottomNavigationBarItem(   // 20250312_DELETE_apple審査通過のため一時的に機能を削除
+      //     //   icon: Icon(Icons.settings),
+      //     //   label: 'Settings',
+      //     // ),
+      //   ],
+      //   ),
     );
   }
 }
